@@ -11,9 +11,10 @@ namespace BatteryMonitorService
     internal class Program
     {
         static EventLogLogger logger = new EventLogLogger("Battery-Logger", "Monitor");
-
+        static int Interval = 2 * 60 * 1000;
         static void Main(string[] args)
         {
+            int.TryParse(args[0], out Interval);
             StartMonitoring().Wait();
         }
 
@@ -40,7 +41,7 @@ namespace BatteryMonitorService
 
 
 
-            await Task.Delay(2 * 60 * 1000);
+            await Task.Delay(Interval);
             await StartMonitoring();
         }
 
